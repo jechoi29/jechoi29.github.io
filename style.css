@@ -2,11 +2,11 @@
 html, body {
   padding: 0 0 0 0;
   margin: 0;
-  font-family: 'helvetica', 'arial', 'sans';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 h1,h2,h3,h4 {
-  font-family: 'helvetica', 'arial', 'sans';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 
 
@@ -16,19 +16,28 @@ a {
 
 .header {
   background: #fff;
-  color: #000;
-  height: 500px;
-  padding: 30px 30px 30px;
+  color: black;
+  padding: 20px;
 }
 
 .header h1 {
   font-size: 50px;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header h2 {
+  font-family: 'Overpass Mono', monospace;
+}
+
+.header p {
+  line-height: 170%;
+  font-size: 15px;
+}
 
 .assignment {
   font-size: 12px;
   line-height: 24px;
-  font-family: 'helvetica', 'arial', 'sans';
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   padding: 20px 20px 20px 30px;
   width: 250px;
   height: 350px;
@@ -45,7 +54,6 @@ a {
   color: #F06;
   text-decoration: none;
 }
-
 
 .footer {
     width: 1100px;
@@ -65,5 +73,15 @@ a {
   background: #F06;
   color: #FFF;
   text-decoration: none;
+}
+
+.center {
+ text-align: center;
+ display: block;
+ padding: 0px 0px 50px 0px;
+}
+
+.assignments {
+  padding: 0px 50px 0px 50px;
 }
 
