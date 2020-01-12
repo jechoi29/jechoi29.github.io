@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Assignment 1: Blink!</title>
+
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <style>
+        .leftline {
+            display: inline-block;
+            text-align: left;
+            width: 450px;
+        }
+
+        .leftline img {
+            display: block;
+        }
+
+        figure {
+            margin-inline-end: 0px;
+            margin-inline-start: 0px;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .center {
+            margin-bottom: 3em;
+        }
+
+        pre {
+            border-style: ridge;
+        }
+
+        a {
+            padding: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="https://jechoi29.github.io/">to my homepage</a></p>
+    <div class="center">
+        <div class="header">
+            <h1>Assignment 1: Blink!</h1>
+            <div class="leftline">
+                <figure>
+                    <img src="/a1_blink_files/blink4.JPG" width=450>
+                    <figcaption>Figure 1: blink circuit preview</figcaption>
+                </figure>
+                <p>
+                    <strong>Assignment Overview:</strong>
+                    Create a schematic for at least 3 LEDs connected to Arduino,
+                    using the circuits from a breadboard. Limit the current flowing through the
+                    LEDs using resistors, and calculate an appropriate resistance to use.
+                    Arduino code should make each LED blink (able to blink independently).
+                    Write firmware for the circuit that makes the LEDs blink in a pattern
+                    and add comments to explain what the code does.
+                    <br><br>
+                    <strong>What I did:</strong> I made 4 LEDs (two blue and red colored LEDs) blink
+                    in a pattern that I wanted to try.
+                    <br><br>
+                    Before I started inserting the electronic components into the breadboard,
+                    I calculated an appropriate resistance to use (equal to or less 20mA) with
+                    the LEDs I've chosen. I used Ohm's Law, which we learned in class.
+                </p>
+                <figure>
+                    <img src="/a1_blink_files/calculations.png" width=450>
+                    <figcaption>Figure 2: calculations for appropriate resistance to use colored LEDs</figcaption>
+                </figure>
+                <p>
+                    <br>
+                    Once I figured out which resistor I needed to use for blue and white LEDs (100 V/A),
+                    I sketched out the schematics for where the components should be placed.
+                    <br><br>
+                </p>
+                <figure>
+                    <img src="/a1_blink_files/blink_schematic.png" width=450>
+                    <figcaption>Figure 3: blink schematics</figcaption>
+                </figure>
+                <p>
+                    <br>
+                    After I got the circuits set up, I manipulated the blink example code and
+                    wrote my own firmwire to experiment with different blinking patterns.
+                    <br><br>
+                    <strong>Firmware (as a code snippet)</strong>
+                </p>
+                <pre>
+/*
+  Blink
+
+  Turns on LEDs, repeatedly (modified example code that 
+  is in the public domain).
+
+  http://www.arduino.cc/en/Tutorial/Blink
+  
+  Most Arduinos have an on-board LED you can control. On
+  the UNO, MEGA and ZERO it is attached to digital pin
+  13, on MKR1000 on pin 6. LED_BUILTIN is set to the
+  correct LED pin independent of which board is used.
+  If you want to know what pin the on-board LED is
+  connected to on your Arduino model, check the Technical
+  Specs of your board at:
+  https://www.arduino.cc/en/Main/Products
+
+  modified 8 May 2014
+  by Scott Fitzgerald
+  modified 2 Sep 2016
+  by Arturo Guadalupi
+  modified 8 Sep 2016
+  by Colby Newman
+*/
+
+
+/* 
+  The setup function runs once when you press reset or
+  power the board.
+*/
+void setup() {
+  // initialize digital pin 12 LED_BUILTIN as an output
+  pinMode(12, OUTPUT);
+  // initialize digital pin 10 LED_BUILTIN as an output
+  pinMode(10, OUTPUT);
+  // initialize digital pin 8 LED_BUILTIN as an output
+  pinMode(8, OUTPUT);
+  // initialize digital pin 6 LED_BUILTIN as an output
+  pinMode(6, OUTPUT);
+}
+
+/*
+  The loop function runs over and over again forever.
+  Turns on individual LEDs, then turns each LED off.
+*/
+void loop() {
+  /*
+    Turn individual LEDs on (by making voltage
+    level HIGH) operation pattern turns on pin
+    12, 8, 10, then 6.
+  */
+  
+  // turn the LED on pin 12
+  digitalWrite(12, HIGH);
+  // wait for half a second (500ms)
+  delay(500);     
+  // turn the LED on pin 8       
+  digitalWrite(8, HIGH);
+  // wait for half a second (500ms)
+  delay(500);
+  // turn the LED on pin 10              
+  digitalWrite(10, HIGH); 
+  // wait for half a second (500ms)  
+  delay(500);         
+  // turn the LED on pin 6
+  digitalWrite(6, HIGH); 
+  // wait for half a second (500ms)    
+  delay(500);               
+
+  /* 
+    Once individual LEDs are on, turn pins off (by
+    making voltage level LOW) in descending order
+    pin 12 to 6. 
+  */
+  
+  // turn the LED off pin 12
+  digitalWrite(12, LOW);
+  // wait for quarter of a second (250ms)   
+  delay(250);   
+  // turn the LED off pin 10          
+  digitalWrite(10, LOW);    
+  // wait for quarter of a second (250ms)
+  delay(250);   
+  // turn the LED off pin 8
+  digitalWrite(8, LOW);   
+  // wait for quarter of a second (250ms)
+  delay(250);               
+  // turn the LED off pin 6
+  digitalWrite(6, LOW);  
+  // wait for quarter of a second (250ms)
+  delay(250);               
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
