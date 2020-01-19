@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Assignment 2: Fade!</title>
+
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <style>
+        .leftline {
+            display: inline-block;
+            text-align: left;
+            width: 450px;
+        }
+
+        .leftline img {
+            display: block;
+        }
+
+        figure {
+            margin-inline-end: 0px;
+            margin-inline-start: 0px;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .center {
+            margin-bottom: 3em;
+        }
+
+        pre {
+            border-style: ridge;
+        }
+
+        a {
+            padding: 2em;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a href="https://jechoi29.github.io/">to my homepage</a></p>
+    <div class="center">
+        <div class="header">
+            <h1>Assignment 2: Fade!</h1>
+            <div class="leftline">
+                <figure>
+                    <img src="/a2_fade_files/fade1.JPG" width=450>
+                    <figcaption>Figure 1: fade circuit preview</figcaption>
+                </figure>
+                <p>
+                    <strong>Assignment Overview:</strong>
+                    Create a schematic, circuit, and code that uses LEDs, a button,
+                    a for-loop, digitalWrite(), digitalRead(), and analogWrite()—
+                    must use LEDs and a button! The schematic, code, and circuit
+                    must correspond to each other. Must limit the current flowing
+                    through the LEDs and the button using resistors, and at least
+                    one of the LEDs should fade.
+
+
+                    <br><br>
+                    <strong>What I did:</strong> Everytime I pressed the button, I made 3 LEDs
+                    (two blue and one white colored LED) blink in a pattern that makes the
+                    white LED fade.
+                    <br><br>
+                    Before I started inserting the electronic components into the breadboard,
+                    I calculated a desired resistance of equal to or less 20mA with
+                    the LEDs I've chosen, using Ohm's Law.
+                </p>
+                <figure>
+                    <img src="/a2_fade_files/calculations.png" width=450>
+                    <figcaption>Figure 2: calculations for appropriate resistance to use colored LEDs and a button
+                    </figcaption>
+                </figure>
+                <p>
+                    <br>
+                    Once I figured out which resistor I needed to use, I chose 100 V/A for blue and white LEDs,
+                    and 330 V/A for the button. Then, I sketched out the schematics for where the components should be
+                    placed.
+                    <br><br>
+                </p>
+                <figure>
+                    <img src="/a2_fade_files/fade_schematic.png" width=450>
+                    <figcaption>Figure 3: fade schematics</figcaption>
+                </figure>
+                <p>
+                    <br>
+                    After I got the circuits set up, I manipulated the fade example code and
+                    wrote my own firmwire to experiment with different patterns that incorporates
+                    the requirements that were mentioned above.
+                    <br><br>
+                    <strong>Firmware (as a code snippet)</strong>
+                </p>
+                <pre>
+/*
+  Fade
+
+  Example codes for getting started in the public domain.
+
+  http://www.arduino.cc/en/Tutorial/Fade
+*/
+
+// constants will not change
+const int ledFade = 9;    // PWM pin the LED attaches to
+const int buttonPin = 2;  // pushbutton pin's number
+
+// variable will change
+int buttonState = 0;      // reads the pushbutton's state
+
+// the setup routine runs once when you press reset
+void setup() {
+  // initialize the pushbutton pin as an input
+  pinMode(buttonPin, INPUT);
+  
+  // use a loop to initialize each pin as an output
+  for (int thisPin = 7; thisPin <= 9; thisPin++) {
+    // declare pin 7, 8, and 9 to be an output
+    pinMode(thisPin, OUTPUT);
+  }
+}
+
+// the loop routine runs over and over again forever
+void loop() {
+  // read the status of the pushbutton's value
+  buttonState = digitalRead(buttonPin);
+  
+  // check if the pushbutton is pressed (on HIGH)
+  if (buttonState == HIGH) {
+    
+    // use a loop to turn on digital LEDs
+    for (int thisPin = 7; thisPin < 9; thisPin++) {
+      // turn on pin 7 and 8
+      digitalWrite(thisPin, HIGH);
+      // wait 500 milliseconds
+      delay(500);
+    }
+
+    // turn on the analog LED, use a loop to increase the
+    // brightness of the LED of pin 9 by 1 (this LED will
+    // show the fade effect)
+    for (int bright = 0; bright <= 255; bright++) {
+      // analog LED's brightness increases by 1
+      analogWrite(ledFade, bright);
+      // wait for 10 milliseconds 
+      delay(10);
+    }
+    
+    // wait for 30 milliseconds to see the dimming effect
+    delay(30);
+
+  // if button is not pressed (on LOW), turn off pins or
+  // leave them off  
+  } else {
+    // use a loop to turn off all LEDs
+    for (int thisPin = 9; thisPin >= 7; thisPin--) {
+      // turn off pin 9, 8, and 7 in this order
+      digitalWrite(thisPin, LOW);
+      // wait for 500 milliseconds
+      delay(500);
+    }
+  }
+}
+                </pre>
+                <figure>
+                    <img src="/a2_fade_files/fade.gif" width=450>
+                    <figcaption>Figure 4: gif of how my LEDs blink</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
