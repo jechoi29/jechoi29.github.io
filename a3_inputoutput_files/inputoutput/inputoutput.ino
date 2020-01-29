@@ -1,8 +1,6 @@
 /*
   Analog input, analog output, serial output
-
   Example code is in the public domain.
-
   http://www.arduino.cc/en/Tutorial/AnalogInOutSerial
 */
 
