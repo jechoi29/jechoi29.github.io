@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Assignment 3: Input Output!</title>
+
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <style>
+      .leftline {
+        display: inline-block;
+        text-align: left;
+        width: 450px;
+      }
+
+      .leftline img {
+        display: block;
+      }
+
+      figure {
+        margin-inline-end: 0px;
+        margin-inline-start: 0px;
+        font-size: 12px;
+        color: gray;
+      }
+
+      .center {
+        margin-bottom: 3em;
+      }
+
+      pre {
+        border-style: ridge;
+      }
+
+      a {
+        padding: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p><a href="index.html">to my homepage</a></p>
+    <div class="center">
+      <div class="header">
+        <h1>Assignment 3: Input Output!</h1>
+        <div class="leftline">
+          <figure>
+            <img src="/a3_inputoutput_files/inputoutput.JPG" width="450" />
+            <figcaption>Figure 1: circuit preview</figcaption>
+          </figure>
+          <p>
+            <strong>Assignment Overview:</strong>
+            Create a schematic, circuit, and code that uses a sensor (e.g.
+            either the photoresistor or the thermistor) in a voltage divider to
+            change the state of an LED. Explain values chosen in schematic
+            description. Use analogRead(), analogWrite(), the map function, and
+            an if-statement. Write something to serial port. Do not use the same
+            message as the example code. Justify the values chosen in the code
+            and what those values are corresponding to in the circuit!
+            <br /><br />
+            <strong>What I did:</strong> I made a blue LED light up when low
+            light is detected (when it gets dark), but when bright light is
+            detected, I made its light fade away. <br /><br />
+            Before I started inserting the electronic components into the
+            breadboard, I had a basic idea of what I wanted to engineer so I
+            first sketched out the schematics for where the components should be
+            placed.
+          </p>
+          <figure>
+            <img
+              src="/a3_inputoutput_files/inputoutput_schematic.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 2: the schematic
+            </figcaption>
+          </figure>
+          <p>
+            <br />
+            Then, I calculated a desired resistance of equal to or less 20mA
+            with the LED I've chosen and calculated the voltage divider's
+            outcomes if I used a 10K V/A resistor, using Ohm's and Voltage
+            Divider Laws.
+            <br />
+            Once I figured out which resistor I needed to use, I chose 100 V/A
+            for the blue LED, and 10K V/A for the photoresistor to be safe (I
+            was able to work with the values at the voltage divider, so the 10K
+            resistor were apt for what I was trying to do).
+            <br /><br />
+          </p>
+          <figure>
+            <img src="/a3_inputoutput_files/calculations.png" width="450" />
+            <figcaption>
+              Figure 3: calculations for appropriate resistance to use a blue
+              LED and a photoresistor
+            </figcaption>
+          </figure>
+          <p>
+            <br />
+            After I got the circuits set up, I manipulated the AnalogInOutSerial
+            example code and wrote my own firmwire to replicate what I wanted to
+            do and incorporates the requirements that were mentioned above.
+            Before uploading my Arduino program into my Arduino, I tested it on
+            Tinkercad. And, this is where I was able to see the sensor and
+            output values as I manipulated the light being detected. I found
+            that 935 was the midpoint sensor value between bright light (974)
+            and low light (54) detection, so I knew that this would be the point
+            were my blue LED light's behavior will change (light up versus fade
+            away).
+            <br /><br />
+            <strong>Firmware (as a code snippet)</strong>
+          </p>
+          <pre>
+/*
+  Analog input, analog output, serial output
+
+  Example code is in the public domain.
+
+  http://www.arduino.cc/en/Tutorial/AnalogInOutSerial
+*/
+
+// constants will not change
+// analog input pin that the
+// photoresistor (LDR) is attached to
+const int analogInLDRPin = A0;  
+// analog output pin that the
+// LED is attached to
+const int analogOutPin = 9; 
+
+// variables will change
+// value read from the photoresistor (LDR)
+int sensorValue = 0;
+// value output to PWM (analog out)
+// pin the LED is attached to
+int outputValue = 0;        
+
+// the setup routine runs once when you press reset
+void setup() {
+  // initialize serial communications at 9600 bps
+  Serial.begin(9600);
+  // initialize photoresistor (LDR) pin as an input
+  pinMode(analogInLDRPin, INPUT);
+  // initialize pin 9 as an output pin
+  pinMode(analogOutPin, OUTPUT);
+}
+
+// the loop routine runs over and over again forever
+void loop() {
+  // read the analog input value
+  // or the photoresistor (LDR)
+  sensorValue = analogRead(analogInLDRPin);
+  
+  // if it is dark, turn on blue LED
+  if (sensorValue < 935 && sensorValue >= 54) {
+    // turn on the blue LED (pin 9)
+    digitalWrite(analogOutPin, HIGH);
+    // indicate if it is dark to Serial Monitor
+    // by printing a short message
+    Serial.println("It is dark so LED on!"); 
+  // but if it is light, fade LED
+  } else {
+    // map it to the range of the analog out (PWM pin)
+    // sense range of values from 54 to 974
+    // make LED from HIGH to LOW brightness
+    outputValue = map(sensorValue, 54, 974, 255, 0);
+    // change the analog out value
+    // to fade the blue LED's light
+    analogWrite(analogOutPin, outputValue);
+    // indicate if it is light to Serial Monitor
+    // by printing a short message
+    Serial.println("===It is light, fade LED!===");
+  }
+  
+  // wait 10 milliseconds before looping again
+  delay(10);
+}
+                </pre
+          >
+          <figure>
+            <img src="/a3_inputoutput_files/inputoutput.GIF" width="450" />
+            <figcaption>
+              Figure 4: gif of how my blue LED lights up and fades away
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
