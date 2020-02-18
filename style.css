@@ -1,13 +1,18 @@
-
-html, body {
+html,
+body {
   padding: 0 0 0 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-h1,h2,h3,h4 {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
+h1,
+h2,
+h3,
+h4 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
 
 a {
   color: #000;
@@ -17,69 +22,83 @@ a {
 .header {
   background: #fff;
   color: black;
-  padding: 20px;
+  padding: 80px;
 }
 
 .header h1 {
-  font-size: 50px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 32px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .header h2 {
-  font-family: 'Overpass Mono', monospace;
+  font-family: "Overpass Mono", monospace;
+  font-size: 18px;
+}
+
+.header h3 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 16px;
 }
 
 .header p {
   line-height: 170%;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .assignment {
   font-size: 12px;
   line-height: 24px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  padding: 20px 20px 50px 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 25px 25px 25px 25px;
   width: 250px;
   float: left;
+  height: 400px;
 }
 
 .assignment a {
-    color: #000;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
 .assignment a:hover {
-  background: #F06;
-  color: #F06;
+  background: #f06;
+  color: #f06;
   text-decoration: none;
 }
 
 .footer {
-    width: 1100px;
-    float: left;
-    padding: 300px 0px 30px 30px;
+  width: 1100px;
+  float: left;
+  padding: 300px 0px 30px 30px;
 }
 
 .widebody {
-    width: 800px;
-    padding: 0px 30px 30px 30px;
+  width: 800px;
+  padding: 0px 30px 30px 30px;
 }
 
 .widebody a {
 }
 
 .widebody a:hover {
-  background: #F06;
-  color: #FFF;
+  background: #f06;
+  color: #fff;
   text-decoration: none;
 }
 
 .center {
- text-align: center;
- display: block;
- padding: 0px 0px 0px 0px;
+  text-align: center;
+  display: block;
+  padding: 0px 0px 0px 0px;
 }
 
 .assignments {
   padding: 0px 50px 0px 50px;
+}
+
+div {
+  display: block;
 }
