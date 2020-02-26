@@ -45,7 +45,7 @@ function portClose() {
 function serialEvent() {
     if (serial.available()) {
 	inData = serial.read();
-	console.log("got back " + inData); 
+	console.log("got back " + inData);
     }
 }
 
