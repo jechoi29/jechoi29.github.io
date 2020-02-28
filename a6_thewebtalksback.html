@@ -132,7 +132,11 @@
             and the webpage communicate over the serial port and
             display the interactivity I hoped for—turning the red LED on
             when the background of the web page is red and when the
-            user presses the space bar. 
+            user presses the space bar. I made the javascript code
+            detect the keyboard presses to send these presses to the
+            serial port. The Arduino code is where I put the logic to turn on
+            the red LED, based on the javascript byte code value the serial
+            port sends—whether or not the space bar javascript byte code is sent.
             <br /><br /><br />
             <strong>Firmware (as a Arduino code snippet)</strong>
           </p>
