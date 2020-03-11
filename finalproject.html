@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+
+    <title>Final Project: Humidity Detector!</title>
+
+    <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <style>
+      .leftline {
+        display: inline-block;
+        text-align: left;
+        width: 450px;
+      }
+
+      .leftline img {
+        display: block;
+      }
+
+      figure {
+        margin-inline-end: 0px;
+        margin-inline-start: 0px;
+        font-size: 12px;
+        color: gray;
+      }
+
+      .center {
+        margin-bottom: 3em;
+      }
+
+      pre {
+        border-style: ridge;
+      }
+
+      .back-link a {
+        padding: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <p><div class="back-link"><a href="index.html">to my homepage</a></div></p>
+    <div class="center">
+      <div class="header">
+        <h1>Final Project: Humidity Detector!</h1>
+        <div class="leftline">
+          <figure>
+            <img
+              src="/finalproject_files/humiditydetector.jpg"
+              width="450"
+            />
+            <figcaption>Figure 1: humidity detector prototype preview</figcaption>
+          </figure>
+          <p>
+            <strong>Final Project Overview:</strong>
+            Integrate electronics skills into a PRODUCT.
+            Take some input and connect that to some output through digital logic.
+            Integrated the project into a prototype
+            (so it cannot just be a breadboard on the table!)
+            <br /><br />
+            <strong>What I did:</strong> I used a DHT11 sensor (Temperature and Humidity Module),
+            LCD Display (LCD1602 Module with pin header), and a red LED for my prototype. I used these
+            components to detect the humidity levels in a room and signal
+            whether the room's humidity is at its ideal state.
+            The DHT11 sensor is the input, the red LED is the output, and the LCD Display
+            provides additional information about the input (the temperature and humidity that the input senses).
+            Based on online research, I found that the optimum humidity range for health and comfort is between 30% to 50%.
+            Thus, I made the red LED light up when humidity is under 30% or over 50%, otherwise the red LED is off.
+            The behavior of the red LED indicates whether I should turn on my dehumidifier.
+            <br /><br />
+            <strong>Why I did it:</strong> I recently bought a dehumidifer for my room
+            because my room tends to have high levels of humidity as condensation forms on my window sill.
+            High humidity levels in the home can cause discomfort and damage the home.
+            Too much moisture promotes the spread of mold, mildew, fungi, bacteria, and viruses.
+            Knowing this, I didn't want the humidity of my room to affect my health and living conditions,
+            which is why I thought it was reasonable to buy a dehumidifer. Unfortunetly,
+            it was difficult to know whether my room was within the ideal humidity range, and
+            I didn't want to turn the device on and off every day. So, I wanted to fix this
+            problem with my prototype idea since I knew that my Arduino kit had a humidity sensor
+            that I could utilize.
+            <br /><br />
+          </p><strong>Drawing the Concept</strong><p>
+            I first drew out the concept, keeping the underlying requirements of the project in mind
+            and reflecting upon the components I have available in my Arduino kit.
+            The input is the DHT11 sensor detects the humidity and temperature of the room.
+            The output is the red LED, and through digital logic, the red LED turns on when the humidity
+            is not within the ideal humidity range (30-50% humidity levels). The LCD Display acts as additional information
+            for the input that helps to understand the red LED's behavior and provides additional information around
+            the temperature and humidity of the room.
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/drawingoutconcept.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 2: drawing the concept
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/summarydrawingoutconcept.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 3: summary of drawing the concept
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/diagramofsystem.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 4: final diagram of the system
+            </figcaption>
+          </figure>
+          <br />
+          <strong>Technical Implementation</strong><br /><br />
+          <p>
+          Once I identified the components I wanted to use and figured out the overall
+          concept that I imagined, I thought it would be best to go step-by-step on implementing
+          the components individually, in order. I also found very helpful documentation about how
+          to set up the DHT11 and LCD Display onto Arduino on <a href="https://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-an-arduino/">
+          Circuit Basics ("HOW TO SET UP THE DHT11 HUMIDITY SENSOR ON AN ARDUINO")</a>, which I followed along.
+          
+          <br /><br />
+          <strong>Red LED</strong><br /><br />
+          I first set up the red LED. In order to turn the red LED on and off,
+          I used the public Arduino example code called <a href="https://www.arduino.cc/en/tutorial/blink">
+          blink</a>. I modified the code to match my schematic.
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/redledschematicandcalc.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 5: the schematic and calculation for the red LED
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/redledcircuit.JPG"
+              width="450"
+            />
+            <figcaption>
+              Figure 6: the close-up of the red LED circuit
+            </figcaption>
+          </figure>
+          <p>
+          <br /><strong>DHT11 Sensor</strong><br /><br />
+          Then I set up the DHT11 sensor (the Temperature and Humidity Module),
+          which was not difficult to install, following the documentation (
+          <a href="https://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-an-arduino/">
+          "HOW TO SET UP THE DHT11 HUMIDITY SENSOR ON AN ARDUINO"</a>).
+          I first had to figure out which type of connection my DHT11 has.
+          The DHT11 provided by the Arduino kit has a three pin connection,
+          which does not require a 10K Ohms pull-up resistor to be manually placed. This is because
+          the resistances are internal to the DHT11. Regardless, I did not have to calculate resistance
+          because the datasheet informs us that 10K Ohms pull-up resistor is required.
+          If I used a four pin connection, I would need to use a 10K Ohm pull-up resistor.
+          Before I was able to use the sensor, I installed the 
+          <a href="https://playground.arduino.cc/Main/DHTLib/">DHTLib Library</a>,
+          which has all the functions needed to get the humidity and temperature readings from the sensor.
+          Then, I uploaded the example program (provided from the same documentation) to the Arduino
+          and read the temperature and humidity levels through serial monitor, which is a part of testing the DHT11 sensor.
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/dht11schematicandcalc.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 7: the schematic and calculation for the DHT11 sensor
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/dht11circuit.JPG"
+              width="450"
+            />
+            <figcaption>
+              Figure 8: the close-up of the DHT11 sensor circuit
+            </figcaption>
+          </figure>
+          <p>
+          <br /><strong>LCD Display</strong><br /><br />
+          Setting up the LCD Display was the most challenging as it took
+          the most time to implement and understand the entire circuitry. It can be overwhelming because
+          there are a lot of connections to be familiar and keep track of. I used this documentation
+          <a href="https://www.circuitbasics.com/how-to-set-up-an-lcd-display-on-an-arduino/">
+          ("ARDUINO LCD SET UP AND PROGRAMMING GUIDE")</a> to get the LCD Display to work.
+          It was important to know — or have a general sense of — the purpose of each connection used in the project.
+          There are two connections that required resistors, in order to control for the settings of the LCD Display
+          (i.e. the display's contrast and backlight brightness levels).
+          Once I got all the connections set up, I printed "hello world" to test onto the LCD Display, using
+          the example program given in the documentation.
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/lcddisplayschematicandcalc.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 9: the schematic, calculation, and additional notes for the LCD Display
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/lcddisplaycircuit_showingpins.JPG"
+              width="450"
+            />
+            <figcaption>
+              Figure 10: the close-up of the LCD Display circuit (Arduino view)
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/lcddisplaycircuit_displayview.JPG"
+              width="450"
+            />
+            <figcaption>
+              Figure 11: the close-up of the LCD Display circuit (LCD Display View)
+            </figcaption>
+          </figure>
+          <p>
+          <br /><strong>Combining Components to Create Humidity Detector Prototype</strong><br /><br />
+          Once I got the components individually working, I was ready to combine all the components together to create my humidity detector prototype.
+          I modified the Arduino code example provided in <a href="https://www.circuitbasics.com/how-to-set-up-the-dht11-humidity-sensor-on-an-arduino/">
+          Circuit Basics ("HOW TO SET UP THE DHT11 HUMIDITY SENSOR ON AN ARDUINO")</a>. The Arduino code example prints the humidity as well as the temperature
+          onto the LCD Display, which I thought were both helpful values to understand the environmental condition of the room. I included the red LED logic to
+          turn on the red LED when the humidity level for health and comfort is not between the range 30 to 50%.
+          </p> <br />
+          <strong>Complete Circuit</strong>
+          <figure>
+            <img
+              src="/finalproject_files/humiditydetectorcircuit.JPG"
+              width="450"
+            />
+            <figcaption>
+              Figure 12: humidity detector prototype entire circuit
+            </figcaption>
+          </figure>
+          <br />
+          <strong>Complete Firmware (as a Arduino code snippet)</strong>
+          <pre>
+// import the DHTLib Library
+// to access necessary functions
+#include <dht.h>
+// import the LiquidCrystal Library
+// to access necessary functions
+// (pre-installed with the Arduino IDE)
+#include <LiquidCrystal.h>
+
+// set the pins the Arduino uses to
+// connect to the LCD Display.
+// RS, E, D4, D5, D6, D7 are the LCD pins
+// RS is connected to pin 12
+// E is connected to pin 11
+// D4 is connected to pin 5 and so on...
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+// create an instance of the dht class called DHT
+dht DHT;
+
+// analog pin A0 sensor is connected to
+#define DHT11_PIN A0
+
+// constant variable for the red LED,
+// digital pin 13
+const int red_LED = 13;
+
+// the setup routine runs once when pressed reset
+void setup(){
+  // initialize the interface to the LCD screen,
+  // specifying the dimensions (width and height)
+  // of the display (set display 16 columns and 2 rows)
+  lcd.begin(16, 2);
+  // initialize digital pin 13, red_LED as an output
+  pinMode(red_LED, OUTPUT);
+}
+
+// the loop routine runs over and over again forever
+void loop(){
+  // read the temperature and humidity
+  DHT.read11(DHT11_PIN);
+  // place the cursor of the LCD Display on the
+  // first column on the first row
+  lcd.setCursor(0,0); 
+  // print "Temp: " onto the LCD Display
+  lcd.print("Temp: ");
+  // print the detected temperature (in Celsius)
+  // from the dht11 sensor onto the LCD Display
+  lcd.print(DHT.temperature);
+  // print the degree sign onto the LCD Display
+  lcd.print((char)223);
+  // print "C" (Celsius) onto the LCD Display
+  lcd.print("C");
+  // place the cursor of the LCD Display on the
+  // first column on the second row
+  lcd.setCursor(0,1);
+  // print "Humidity: " onto the LCD Display
+  lcd.print("Humidity: ");
+  // print the detected humidity level from 
+  // the dht11 sensor onto the LCD Display
+  lcd.print(DHT.humidity);
+  // print "%" (percent) onto the LCD Display
+  lcd.print("%");
+  // if the humidity level is
+  // lower than 30 or higher than 50
+  // turn on the LED, otherwise,
+  // turn it off
+  if (DHT.humidity < 30 || DHT.humidity > 50) {
+    // turn the LED on by making
+    // voltage level HIGH (max PWR)
+    digitalWrite(red_LED, HIGH);   
+  } else {
+    // turn the red LED off by making
+    // voltage level LOW (GND)
+    digitalWrite(red_LED, LOW); 
+  }
+  // wait for 2 seconds 
+  delay(2000);
+}
+          </pre>
+          <strong>Designing the Enclosure</strong>
+          <p>
+            After I got my circuits working, I designed a small cardboard box enclosure for my circuits.
+            I mounted the LCD Display, DHT11 temperature and humidity sensor, and the red LED on top of the box,
+            so I could visibly see these components. 
+            I had to be careful to avoid damaging and/or disconnecting the hardware connections.
+            After I was done creating the enclosure, I replaced the USB power
+            input to a 9V battery input that is given in the Arduino kit. 
+            Using a 9V battery power source is acceptable because the Ardunio
+            internally sets the power to 5V.
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/designingenclosure.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 13: information diagram for how to design the enclosure
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/finalproject_files/humiditydetectorwbattery.jpg"
+              width="450"
+            />
+            <figcaption>
+              Figure 14: implementing the 9V battery for humidity detector prototype
+            </figcaption>
+          </figure>
+          <br /><strong>Video Demo of Humidity Detector Prototype</strong><br /><br />
+          <iframe width="450" height="315" src="https://www.youtube.com/embed/sPfdGfdUlhI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <br /><br />
+          <strong>Implementation Tips</strong>
+          <p>
+          It is important to check the software and hardware connections.
+          It is easier to build the humidity detector prototype in a step-by-step process.
+          Try to get the components working individually, then combine it altogether.
+          When something goes wrong and the components are not functioning as expected,
+          figure out what the problem is. For instance, when my prototype did not work
+          properly, I tested the components individually, checked whether or not my
+          coding logic was appropriate, and made sure my connections were strong.
+          If my software was correct, I knew that it had to be a hardware problem, and vice versa.
+          When facing hardware problems, I also learned that it is good to keep
+          in mind that internal connections of the wires can be weak,
+          even if our wiring physically appears to be plugged in correctly.
+          </figure>
+          </p>
+          <figure>
+            <img
+              src="/finalproject_files/codedevelopment.png"
+              width="450"
+            />
+            <figcaption>
+              Figure 15: demonstration of a step-by-step process — the development of my firmware from left to right (testing red LED, DHT11 sensor, LCD Display, and everything put together to create humidity detector prototype)
+            </figcaption>
+          </figure>
+          <p>
+            <br />
+            Special thanks to Nadya and Jasper for helping me debug the hardware side
+            of my project, in other words, check the connections of my circuit.
+            I realized how important strong connections are and how difficult it is
+            to identify internal circuitry problems!
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
